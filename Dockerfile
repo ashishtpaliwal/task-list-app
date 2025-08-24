@@ -1,10 +1,11 @@
-# Use OpenJDK 17 as base image
-FROM openjdk:17-jdk-slim
+# Use OpenJDK 8 as base image
+FROM openjdk:8-jdk-slim
 
 # Set working directory
 WORKDIR /app
 
 # Copy Maven wrapper and pom.xml
+COPY mvnw .
 COPY mvnw.cmd .
 COPY .mvn .mvn
 COPY pom.xml .
@@ -13,10 +14,10 @@ COPY pom.xml .
 COPY src src
 
 # Build the application
-RUN chmod +x mvnw.cmd && ./mvnw.cmd clean package -DskipTests
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 # Expose port
-EXPOSE 8088
+EXPOSE 8080
 
 # Set environment variable for production
 ENV SPRING_PROFILES_ACTIVE=production
