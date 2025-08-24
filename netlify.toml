@@ -1,0 +1,22 @@
+[build]
+  base = "."
+  publish = "target/classes/static"
+  command = "mvn clean package -DskipTests"
+
+[build.environment]
+  JAVA_VERSION = "17"
+  MAVEN_VERSION = "3.8.6"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  SPRING_PROFILES_ACTIVE = "production"
+
+[context.deploy-preview.environment]
+  SPRING_PROFILES_ACTIVE = "preview"
+
+[context.branch-deploy.environment]
+  SPRING_PROFILES_ACTIVE = "development"
